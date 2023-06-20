@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { useSession, signOut, getSession, signIn } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -7,10 +7,21 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-red-700 text-4xl bg-yellow-300">
-        Welcome to the First page
-      </h1>
-      <button onClick={() => signOut()}>Sign out</button>
+      <div className="h-screen w-screen flex items-center justify-center">
+        {session ? (
+          <div className="flex flex-col gap-1 items-center">
+            <h2>{session?.user?.name}</h2>
+            <img
+              src={session?.user?.image!}
+              alt=""
+              className="w-32 h-32 rounded-full"
+            />
+            <button onClick={() => signOut()}>SIGN OUT</button>
+          </div>
+        ) : (
+          <button onClick={() => signIn()}>SIGN IN</button>
+        )}
+      </div>
     </>
   );
 }
