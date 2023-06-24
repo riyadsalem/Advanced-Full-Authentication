@@ -5,6 +5,9 @@ import { CiUser } from "react-icons/ci";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FiMail, FiLock } from "react-icons/fi";
+import { BsTelephone } from "react-icons/bs";
+import validator from "validator";
 
 interface IRegisterFormProps {}
 
@@ -19,6 +22,15 @@ const FormSchema = z.object({
     .min(2, "Last name must be atleast 2 characters")
     .max(32, "Last name must be less than 32 characters")
     .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
+  email: z.string().email("Please enter a valid email adress."),
+  phone: z.string().refine(validator.isMobilePhone, {
+    message: "Please enter a valid phone number",
+  }),
+  password: z
+    .string()
+    .min(6, "Password must be atleast 6 characters.")
+    .max(52, "Password must be less than 52 characters."),
+  confirmPassword: z.string(),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -71,8 +83,49 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
             error={errors?.last_name?.message}
             disabled={isSubmitting}
           />
-          <button type="submit">Submit</button>
         </div>
+        <Input
+          name="email"
+          label="Email address"
+          type="text"
+          icon={<FiMail />}
+          placeholder="example@emaple.com"
+          register={register}
+          error={errors?.email?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="phone"
+          label="phone number"
+          type="text"
+          icon={<BsTelephone />}
+          placeholder="+(xxx) xxx-xx-xx"
+          register={register}
+          error={errors?.phone?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="password"
+          label="Password"
+          type="password"
+          icon={<FiLock />}
+          placeholder="***********"
+          register={register}
+          error={errors?.password?.message}
+          disabled={isSubmitting}
+        />
+        <Input
+          name="confirmPassword"
+          label="Confirm password"
+          type="password"
+          icon={<FiLock />}
+          placeholder="***********"
+          register={register}
+          error={errors?.confirmPassword?.message}
+          disabled={isSubmitting}
+        />
+
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
