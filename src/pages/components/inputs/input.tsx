@@ -17,7 +17,7 @@ const Input: React.FunctionComponent<InputProps> = (
     props;
 
   const calculateTranslate = (): string => {
-    if (name == "first_name" || name == "last_name") return "translateY(-13px)";
+    if (name == "first_name" || name == "last_name") return "translateY(-22px)";
     return "translateY(-12px)";
   };
 

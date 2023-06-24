@@ -3,8 +3,25 @@ import { FC, ReactElement } from "react";
 import Input from "../inputs/input";
 import { CiUser } from "react-icons/ci";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface IRegisterFormProps {}
+
+const FormSchema = z.object({
+  first_name: z
+    .string()
+    .min(2, "First name must be atleast 2 characters")
+    .max(32, "First name must be less than 32 characters")
+    .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
+  last_name: z
+    .string()
+    .min(2, "Last name must be atleast 2 characters")
+    .max(32, "Last name must be less than 32 characters")
+    .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
+});
+
+type FormSchemaType = z.infer<typeof FormSchema>;
 const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
   const {
     register,
@@ -12,7 +29,9 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
     watch,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(FormSchema),
+  });
 
   const onSubmit = (data: any) => console.log(data);
 
@@ -52,6 +71,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
             error={errors?.last_name?.message}
             disabled={isSubmitting}
           />
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>
