@@ -12,7 +12,9 @@ export default function Home() {
           <div className="flex flex-col gap-1 items-center">
             <h2>{session?.user?.name}</h2>
             <h6>{session?.user?.email}</h6>
-
+            <span>
+              Provider : <b>{session?.user?.provider}</b>
+            </span>
             <img
               src={session?.user?.image!}
               alt=""
