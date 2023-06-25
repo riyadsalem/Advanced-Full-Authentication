@@ -1,5 +1,5 @@
+import { FC, ReactElement, useState, useEffect } from "react";
 import Link from "next/link";
-import { FC, ReactElement } from "react";
 import Input from "../inputs/input";
 import { CiUser } from "react-icons/ci";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiMail, FiLock } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import validator from "validator";
+import zxcvbn from "zxcvbn";
 
 interface IRegisterFormProps {}
 
@@ -35,6 +36,7 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
+  const [passwordScore, setPasswordScore] = useState<number>(0);
   const {
     register,
     handleSubmit,
@@ -46,6 +48,15 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
   });
 
   const onSubmit = (data: any) => console.log(data);
+
+  const validatePasswordStrength = () => {
+    let password = watch().password;
+    return zxcvbn(password ? password : "").score;
+  };
+
+  useEffect(() => {
+    setPasswordScore(validatePasswordStrength());
+  }, [watch().password]);
 
   return (
     <div className="w-full px-12 py-4">
@@ -114,6 +125,25 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
           error={errors?.password?.message}
           disabled={isSubmitting}
         />
+
+        {watch().password?.length > 0 && (
+          <div className="flex mt-2">
+            {Array.from(Array(5).keys()).map((span, i) => (
+              <span className="w-1/5 px-1" key={i}>
+                <div
+                  className={`h-2 rounded-xl b ${
+                    passwordScore <= 2
+                      ? "bg-red-400"
+                      : passwordScore < 4
+                      ? "bg-yellow-400"
+                      : "bg-green-500"
+                  }`}
+                ></div>
+              </span>
+            ))}
+          </div>
+        )}
+
         <Input
           name="confirmPassword"
           label="Confirm password"
