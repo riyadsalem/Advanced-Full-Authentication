@@ -32,6 +32,12 @@ const FormSchema = z.object({
     .min(6, "Password must be atleast 6 characters.")
     .max(52, "Password must be less than 52 characters."),
   confirmPassword: z.string(),
+  accept: z.literal(true, {
+    errorMap: () => ({
+      message:
+        "Please agree to all the terms and conditions before continuing.",
+    }),
+  }),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -154,6 +160,40 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
           error={errors?.confirmPassword?.message}
           disabled={isSubmitting}
         />
+
+        <div className="flex items-center mt-3">
+          <input
+            type="checkbox"
+            id="accept"
+            className="mr-2 focus:ring-0 rounded"
+            {...register("accept")}
+          />
+          <label htmlFor="accept" className="text-gray-700">
+            I accept the&nbsp;
+            <a
+              href=""
+              className="text-blue-600 hover:text-blue-700 hover:underline"
+              target="_black"
+            >
+              terms
+            </a>
+            &nbsp;and&npsp;
+            <a
+              href=""
+              className="text-blue-600 hover:text-blue-700 hover:underline"
+              target="_blank"
+            >
+              privacy policy
+            </a>
+          </label>
+        </div>
+        <div>
+          {errors?.accept && (
+            <p className="text-sm text-red-600 mt-1">
+              {errors?.accept?.message}
+            </p>
+          )}
+        </div>
 
         <button type="submit">Submit</button>
       </form>
