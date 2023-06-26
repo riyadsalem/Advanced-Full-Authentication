@@ -9,6 +9,7 @@ import { FiMail, FiLock } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
+import SlideButton from "../buttons/SlideButton";
 
 interface IRegisterFormProps {}
 
@@ -63,7 +64,6 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
   useEffect(() => {
     setPasswordScore(validatePasswordStrength());
   }, [watch().password]);
-
   return (
     <div className="w-full px-12 py-4">
       <h2 className="text-center text-2xl font-bold tracking-wider text-gray-800">
@@ -173,11 +173,11 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
             <a
               href=""
               className="text-blue-600 hover:text-blue-700 hover:underline"
-              target="_black"
+              target="_blank"
             >
               terms
             </a>
-            &nbsp;and&npsp;
+            &nbsp;and&nbsp;
             <a
               href=""
               className="text-blue-600 hover:text-blue-700 hover:underline"
@@ -195,7 +195,13 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
           )}
         </div>
 
-        <button type="submit">Submit</button>
+        <SlideButton
+          type="submit"
+          text="Sign up"
+          slide_text="Secure sign up"
+          icon={<FiLock />}
+          disabled={isSubmitting}
+        />
       </form>
     </div>
   );
