@@ -10,6 +10,7 @@ import { BsTelephone } from "react-icons/bs";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import SlideButton from "../buttons/SlideButton";
+// import { toast } from "react-toastify";
 
 interface IRegisterFormProps {}
 
@@ -208,6 +209,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
           disabled={isSubmitting}
         />
       </form>
+      {/* <button onClick={() => toast.error("Yaa")}>Toast</button> */}
     </div>
   );
 };
