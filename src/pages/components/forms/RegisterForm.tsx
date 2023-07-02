@@ -10,7 +10,9 @@ import { BsTelephone } from "react-icons/bs";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import SlideButton from "../buttons/SlideButton";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { SubmitHandler } from "react-hook-form/dist/types/form";
+import axios from "axios";
 
 interface IRegisterFormProps {}
 
@@ -60,7 +62,17 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    try {
+      const { data } = await axios.post("/api/auth/signup", {
+        ...values,
+      });
+      reset();
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   const validatePasswordStrength = () => {
     let password = watch().password;
@@ -209,7 +221,6 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
           disabled={isSubmitting}
         />
       </form>
-      {/* <button onClick={() => toast.error("Yaa")}>Toast</button> */}
     </div>
   );
 };
