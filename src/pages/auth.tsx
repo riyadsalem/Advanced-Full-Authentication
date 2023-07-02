@@ -1,5 +1,5 @@
-import Background from "./components/Backgrounds/Background";
-import RegisterForm from "./components/forms/RegisterForm";
+import Background from "@/components/Backgrounds/Background";
+import RegisterForm from "@/components/forms/RegisterForm";
 
 export default function auth() {
   return (
