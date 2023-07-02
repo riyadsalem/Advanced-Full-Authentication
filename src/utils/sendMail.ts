@@ -26,13 +26,15 @@ export default async function sendMail(
       user: SMTP_EMAIL,
       pass: SMTP_PASSWORD,
     },
-     */
+    */
+
     service: "gmail",
     auth: {
       user: MAILING_EMAIL,
       pass: MAILING_PASSWORD,
     },
   });
+
   //-----Html replacment
   const data = handlebars.compile(template);
   const replacments = {
@@ -41,6 +43,7 @@ export default async function sendMail(
     image: image,
   };
   const html = data(replacments);
+
   //------------verify connection config
   await new Promise((resolve, reject) => {
     transporter.verify((error, success) => {
@@ -53,6 +56,7 @@ export default async function sendMail(
       }
     });
   });
+
   //---------send email
   const options = {
     from: MAILING_EMAIL,
