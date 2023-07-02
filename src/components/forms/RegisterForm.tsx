@@ -48,8 +48,8 @@ const FormSchema = z
     message: "Password doesn't match",
     path: ["confirmPassword"],
   });
-
 type FormSchemaType = z.infer<typeof FormSchema>;
+
 const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
   const [passwordScore, setPasswordScore] = useState<number>(0);
   const {
