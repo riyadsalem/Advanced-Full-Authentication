@@ -1,14 +1,19 @@
-import { FC, ReactElement } from "react";
+import { ReactElement } from "react";
 import Link from "next/link";
 import Input from "../inputs/input";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiMail, FiLock } from "react-icons/fi";
 import SlideButton from "../buttons/SlideButton";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
 
-interface ILoginFormProps {}
+interface ILoginFormProps {
+  callbackUrl: string;
+  csrfToken: string;
+}
 
 const FormSchema = z.object({
   email: z.string().email("Please enter a valid email adress."),
@@ -20,9 +25,13 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const LoginForm: FC<ILoginFormProps> = (props): ReactElement => {
+const LoginForm: React.FunctionComponent<ILoginFormProps> = ({
+  callbackUrl,
+  csrfToken,
+}): ReactElement => {
   const router = useRouter();
   const path = router.pathname;
+
   const {
     register,
     handleSubmit,
@@ -31,8 +40,18 @@ const LoginForm: FC<ILoginFormProps> = (props): ReactElement => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async () => {
-    console.log("This is Login Page");
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    const res: any = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+      callbackUrl,
+    });
+    if (res.error) {
+      return toast.error(res.error);
+    } else {
+      return router.push("/");
+    }
   };
 
   return (
@@ -56,7 +75,13 @@ const LoginForm: FC<ILoginFormProps> = (props): ReactElement => {
           Sign up
         </a>
       </p>
-      <form className="my-8 text-sm" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        method="post"
+        action="/api/auth/signin/email"
+        className="my-8 text-sm"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input type="hidden" name="csrfToken" defaultValue={csrfToken} />
         <Input
           name="email"
           label="Email address"
@@ -77,13 +102,11 @@ const LoginForm: FC<ILoginFormProps> = (props): ReactElement => {
           error={errors?.password?.message}
           disabled={isSubmitting}
         />
-
         <div className="mt-2 hover:underline w-fit">
           <Link href="/forgot" className=" text-blue-600">
             Forgot password ?
           </Link>
         </div>
-
         <SlideButton
           type="submit"
           text="Sign in"
