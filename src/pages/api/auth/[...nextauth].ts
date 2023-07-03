@@ -1,10 +1,4 @@
-import NextAuth, {
-  Account,
-  Awaitable,
-  Profile,
-  RequestInternal,
-  User,
-} from "next-auth";
+import NextAuth, { Account, Profile, User } from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
