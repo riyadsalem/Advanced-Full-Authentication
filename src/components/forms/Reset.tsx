@@ -8,6 +8,9 @@ import { FiLock } from "react-icons/fi";
 import zxcvbn from "zxcvbn";
 import SlideButton from "../buttons/SlideButton";
 import { SubmitHandler } from "react-hook-form/dist/types/form";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const FormSchema = z
   .object({
@@ -25,6 +28,7 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 
 const ResetForm: FC<{ token: string }> = ({ token }): ReactElement => {
   const [passwordScore, setPasswordScore] = useState<number>(0);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -35,7 +39,19 @@ const ResetForm: FC<{ token: string }> = ({ token }): ReactElement => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {};
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    try {
+      const { data } = await axios.post("/api/auth/reset", {
+        password: values.password,
+        token,
+      });
+      reset();
+      toast.success(data.message);
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   const validatePasswordStrength = () => {
     let password = watch().password;
