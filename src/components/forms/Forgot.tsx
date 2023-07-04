@@ -7,6 +7,8 @@ import { FiLock, FiMail } from "react-icons/fi";
 import SlideButton from "../buttons/SlideButton";
 import { SubmitHandler } from "react-hook-form/dist/types/form";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 interface IForgotFormProps {}
 
@@ -24,7 +26,16 @@ const ForgotForm: React.FunctionComponent<IForgotFormProps> = (props) => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {};
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    try {
+      const { data } = await axios.post("/api/auth/forgot", {
+        email: values.email,
+      });
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div className="w-full px-12 py-4">

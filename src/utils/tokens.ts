@@ -5,3 +5,9 @@ export const createActivationToken = (payload: any) => {
     expiresIn: "2d",
   });
 };
+
+export const createResetToken = (payload: any) => {
+  return jwt.sign(payload, RESET_TOKEN_SECRET!, {
+    expiresIn: "6h",
+  });
+};
