@@ -91,7 +91,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
         you already have an account ? &nbsp;
         <Link
           href="/auth"
-          className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
+          className="text-[#d169ca] hover:text-[#e393da] hover:underline cursor-pointer"
         >
           Sign in
         </Link>
@@ -190,7 +190,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
             I accept the&nbsp;
             <a
               href=""
-              className="text-blue-600 hover:text-blue-700 hover:underline"
+              className="text-[#d169ca] hover:text-[#e393da] hover:underline"
               target="_blank"
             >
               terms
@@ -198,7 +198,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
             &nbsp;and&nbsp;
             <a
               href=""
-              className="text-blue-600 hover:text-blue-700 hover:underline"
+              className="text-[#d169ca] hover:text-[#e393da] hover:underline"
               target="_blank"
             >
               privacy policy

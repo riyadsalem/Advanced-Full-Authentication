@@ -62,7 +62,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = ({
       <p className="text-center text-sm text-gray-600 mt-2">
         You do not have an account ? &nbsp;
         <a
-          className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
+          className="text-[#d169ca] hover:text-[#e393da] hover:underline cursor-pointer"
           onClick={() => {
             router.push({
               pathname: path,
@@ -103,7 +103,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = ({
           disabled={isSubmitting}
         />
         <div className="mt-2 hover:underline w-fit">
-          <Link href="/forgot" className=" text-blue-600">
+          <Link href="/forgot" className=" text-[#d169ca] hover:text-[#e393da]">
             Forgot password ?
           </Link>
         </div>

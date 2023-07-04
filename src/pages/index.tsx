@@ -17,7 +17,7 @@ export default function Home() {
             <div className="w-full text-right">
               <div className="py-6 px-3">
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                  className="bg-[#d169ca] hover:bg-[#e393da] text-md uppercase font-bold px-8 py-2 rounded-md sm:mr-2 mb-1 ease-linear transition-all duration-150"
                   onClick={() => signOut()}
                 >
                   Log out
@@ -40,7 +40,7 @@ export default function Home() {
               </div>
               <div className="mb-2 mt-10">
                 You logged in using &nbsp;
-                <span className="capitalize bg-blue-400 text-white px-4 py-1 ml-2 font-bold italix text-lg rounded-md">
+                <span className="capitalize bg-[#d169ca] text-white px-4 py-1 pb-2 ml-2 font-bold italix text-lg rounded-md">
                   {session?.user?.provider}
                 </span>
               </div>

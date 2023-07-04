@@ -19,13 +19,13 @@ export default function SlideButton({
     <button
       type={type}
       disabled={disabled}
-      className="relative w-full inline-flex items-center justify-center px-8 py-3 mt-4 overflow-hidden font-medium bg-blue-500 transition duration-300 ease-out border-2 rounded-md group"
+      className="relative w-full inline-flex items-center justify-center px-8 py-3 mt-4 overflow-hidden font-medium bg-[#d169ca] transition duration-300 ease-out border-2 rounded-md group"
     >
       {disabled ? (
         <BeatLoader color="#fff" size={15} />
       ) : (
         <>
-          <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-blue-600 group-hover:translate-x-0 ease">
+          <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white  duration-300 -translate-x-full bg-[#e393da] group-hover:translate-x-0 ease">
             {icon}&nbsp;{slide_text}
           </span>
           <span className="absolute flex items-center justify-center w-full h-full text-white transition-all duration-300 transform group-hover:translate-x-full ease">

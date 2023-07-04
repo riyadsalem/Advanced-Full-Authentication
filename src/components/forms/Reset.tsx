@@ -71,7 +71,7 @@ const ResetForm: FC<{ token: string }> = ({ token }): ReactElement => {
         Sign in instead ? &nbsp;
         <Link
           href="/auth"
-          className="text-blue-600 hover:text-blue-700 hover:underline cursor-pointer"
+          className="text-[#d169ca] hover:text-[#e393da] hover:underline cursor-pointer"
         >
           Sign in
         </Link>
