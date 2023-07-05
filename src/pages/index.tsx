@@ -40,7 +40,7 @@ export default function Home() {
               </div>
               <div className="mb-2 mt-10">
                 You logged in using &nbsp;
-                <span className="capitalize bg-[#d169ca] text-white px-4 py-1 pb-2 ml-2 font-bold italix text-lg rounded-md">
+                <span className="capitalize bg-[#d169ca] text-white  px-4 py-1 pb-2 ml-2 font-bold italix text-lg rounded-md">
                   {session?.user?.provider}
                 </span>
               </div>

@@ -31,18 +31,22 @@ export default function auth({
         />
 
         {/*----Form----*/}
-        <div className="w-full sm:w-5/6 md:w-2/3 lg:w-1/2 xl:w-1-3 2xl:w-1/3 h-full bg-white flex flex-col items-center justify-center ">
+        <div
+          className={`w-full sm:w-5/6 md:w-2/3 lg:w-1/2 xl:w-1-3 2xl:w-1/3 h-full bg-white flex flex-col items-center justify-center shadow-lg shadow-[#e393da] mr-5 mt-4 ${
+            tab == "signin" ? "pt-7 pb-7" : ""
+          }`}
+        >
           {tab == "signin" ? (
             <LoginForm callbackUrl={callbackUrl} csrfToken={csrfToken} />
           ) : (
             <RegisterForm />
           )}
-          <div className="w-full flex items-center justify-between px-12">
+          <div className="w-full flex items-center justify-between px-12 -mt-2">
             <div className="w-full h-[1px] bg-gray-300"></div>
             <span className="text-sm uppercase mx-6 text-gray-400">Or</span>
             <div className="w-full h-[1px] bg-gray-300"></div>
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
+          <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 pb-4">
             {providers.map((provider: Provider) => {
               if (provider.name == "Credentials") return;
               return (

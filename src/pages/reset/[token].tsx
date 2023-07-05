@@ -10,7 +10,7 @@ export default function Reset({ token }: { token: string }) {
         <Background image={`"../../auth/reset.jpg"`} />
 
         {/*----Form----*/}
-        <div className="w-full sm:w5/6 md:w-2/3 lg:w1/2 xl:w-1/3 2xl:w-1/3 h-full bg-white flex flex-col items-center justify-center">
+        <div className="w-full sm:w5/6 md:w-2/3 lg:w1/2 xl:w-1/3 2xl:w-1/3 h-full bg-white flex flex-col items-center justify-center shadow-lg shadow-[#e393da] mr-5 pb-5 pt-7">
           <ResetForm token={token} />
         </div>
       </div>

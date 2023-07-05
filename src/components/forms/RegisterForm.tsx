@@ -83,7 +83,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props): ReactElement => {
     setPasswordScore(validatePasswordStrength());
   }, [watch().password]);
   return (
-    <div className="w-full px-12 py-4">
+    <div className="w-full px-12 pt-4">
       <h2 className="text-center text-2xl font-bold tracking-wider text-gray-800">
         Sign up
       </h2>
